@@ -1,6 +1,6 @@
 from pathlib import Path
 import numpy as np
-from scipy.spatial.distance import cdist
+from scipy.spatial.distance import pdist
 
 CURRENT_FOLDER = Path(__file__).absolute().parent
 INPUT_FILE = CURRENT_FOLDER / 'input.txt'
@@ -14,5 +14,5 @@ for row in reversed(duplicated_rows):
     galaxies[galaxies[:, 0] > row, 0] = galaxies[galaxies[:, 0] > row, 0] + 1e6 - 1
 for col in reversed(duplicated_cols):
     galaxies[galaxies[:, 1] > col, 1] = galaxies[galaxies[:, 1] > col, 1] + 1e6 - 1
-distances = cdist(galaxies, galaxies, metric='cityblock')
-print(distances.sum()//2)
+distances = pdist(galaxies, metric='cityblock')
+print(distances.sum())
