@@ -20,7 +20,7 @@ goal = (height - 1, width - 1)
 # heat_loss = quantity to minimize
 # position = (row, column)
 # direction = (drow, dcol)
-# steps = number of steps since the last time we turned (4 <= steps <= 10)
+# steps = number of steps since the last time we turned (4 <= steps < 10)
 frontier = []
 heappush(frontier, (0, start, (1, 0), 0))
 heappush(frontier, (0, start, (0, 1), 0))
@@ -33,7 +33,8 @@ while frontier:
     row, col = position
     di, dj = direction
 
-    if position == goal:
+    # Ultra crucible need a minimum of 4 steps before it can stop
+    if position == goal and steps >= 4:
         break
 
     new_dirs = []
