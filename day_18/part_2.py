@@ -5,10 +5,10 @@ CURRENT_FOLDER = Path(__file__).absolute().parent
 INPUT_FILE = CURRENT_FOLDER / 'input.txt'
 DEMO_INPUT_FILE = CURRENT_FOLDER / 'demo_input.txt'
 MOVES = {
-    'U': (-1, 0),
-    'D': (1, 0),
-    'L': (0, -1),
-    'R': (0, 1),
+    0: (0, 1),
+    1: (1, 0),
+    2: (0, -1),
+    3: (-1, 0),
 }
 
 
@@ -17,10 +17,10 @@ s = 0
 perimeter = 0
 
 with open(INPUT_FILE) as f:
-    row, col = (0, 0)
     for line in f.read().splitlines():
-        direction, length, _ = parse('{} {:d} ({})', line)
-        drow, dcol = MOVES[direction]
+        _, color = parse('{} (#{})', line)
+        length = int(color[:-1], 16)
+        drow, dcol = MOVES[int(color[-1])]
         # Use signed area formula from https://en.wikipedia.org/wiki/Polygon#Area
         s += (drow * col - dcol * row) * length
         row += drow * length
